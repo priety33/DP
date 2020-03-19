@@ -1,6 +1,21 @@
 // O(nlogn)- binary search
 //we place every element encountered in the lis array, after finding where to place it in the already existing lis.
 //length if array at the end will give us the maxm length
+/*1. If A[i] is smallest among all end 
+   candidates of active lists, we will start 
+   new active list of length 1.
+
+2. If A[i] is largest among all end candidates of 
+  active lists, we will clone the largest active 
+  list, and extend it by A[i].
+
+
+3. If A[i] is in between, we will find a list with 
+  largest end element that is smaller than A[i]. 
+  Clone and extend this list by A[i]. We will discard all
+  other lists of same length as that of this modified list.
+  
+  https://www.geeksforgeeks.org/longest-monotonically-increasing-subsequence-size-n-log-n/ */
 
 class Solution {
 public:
