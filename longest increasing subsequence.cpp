@@ -1,6 +1,12 @@
 // O(nlogn)- binary search
-//we place every element encountered in the lis array, after finding where to place it in the already existing lis.
-//length if array at the end will give us the maxm length
+//we place every element encountered in the lis array, after finding where to place it in the already existing lis :
+/*We iterator over all elements and store in a sorted array S the last element in each one of the increasing subsequences found
+  so far and for every element X, we pick the largest element smaller than X -using binary search- in the S and replace it 
+  with X which means that we added the current element to increasing subsequence ending with X, otherwise, if there is no 
+  element smaller than X in S we insert it in S which forms a new increasing subsequence and so on until the last element 
+  and our answer in the last will be the size of S.*/
+//length if array at the end will give us the maxm length 
+
 /*1. If A[i] is smallest among all end 
    candidates of active lists, we will start 
    new active list of length 1.
