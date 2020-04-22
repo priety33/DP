@@ -4,11 +4,12 @@ public:
         int N = A.size();
         vector<int> dp(N);
         for (int i = 0; i < N; ++i) {
-            int curMax = 0;
+            int curMax = 0; //at start of each element do curmax=0, and then keep updating curmax for atmost previous k elements
             for (int k = 1; k <= K && i - k + 1 >= 0; ++k) {
                 curMax = max(curMax, A[i - k + 1]);
-                dp[i] = max(dp[i], (i >= k ? dp[i - k] : 0) + curMax * k);
+                dp[i] = max(dp[i], (i-k>=0 ? dp[i - k] : 0) + curMax * k);
             }
+            cout<<dp[i]<<" ";
         }
         return dp[N - 1];
     }
