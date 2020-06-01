@@ -1,4 +1,4 @@
-//BACKTRACKING- fails in longer test cases
+//RECURSION- fails in longer test cases
 
 class Solution {
 public:
@@ -35,10 +35,62 @@ public:
 };
 
 
+/*
+wordDict = ["cat", "cats", "and", "sand", "dog"]
+index:    0   1   2   3   4   5   6   7   8   9
+        +---------------------------------------+
+s:      | c | a | t | s | a | n | d | d | o | g |
+        +---------------------------------------+
+          i   
+          j
+
+dp[0] = []
+dp[1] = []
+dp[2] = ["cat"]
+dp[3] = ["cats"]
+dp[4] = []
+dp[5] = []
+dp[6] = ["cat sand","cats and"]
+dp[7] = []
+dp[8] = []
+dp[9] = ["cat sand dog","cats and dog"]
+
+>> recurrence relation:
+dp[i] = 
+for (int j = 0; j < i; j++) {
+	substr = s[j, i];
+  if (dp[j].size() > 0 && wordDict.contains(substr)) {
+      for (String l : dp[j]) {
+          dp[i].add(l + substr);
+      }
+  }
+}
+*/
+class Solution {
+public:
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        int N = s.size();
+        unordered_set<string> wordSet(wordDict.begin(), wordDict.end());
+        
+        vector<vector<string>> dp(N + 1, vector<string>());
+        dp[0].push_back("");
+        for(int i = 0; i < N; ++i){
+            for(int j = 0; j < i; ++j){
+                string substr = s.substr(j, i - j + 1);
+                if(dp[j].size() > 0 && wordSet.find(substr) != wordSet.end()){
+                    for(string& l : dp[j]){
+                        dp[i+1].push_back(l + (l == "" ? "" : " ") + substr);
+                    }
+                }
+            }
+        }
+        
+        return dp[N];
+    }
+};
 
 
-
-//using DP
+//more optimised DP
 
 class Solution {
 public:
@@ -51,7 +103,7 @@ public:
         {
             if(isbreakable[pos+i] && dict[s.substr(pos,i)]) //can be broken here only if
                                                             //1. word just after this is valid (isbreakable[pos+i])
-                                                            //2. thi word is valid 
+                                                            //2. this word is valid 
             {
                 if(pos+i==l) ans.push_back(res+s.substr(pos,i)); //whole string covered
                 else getpath(dict, isbreakable, s, pos+i, l, minlen, maxlen, res+s.substr(pos,i)+" ");
