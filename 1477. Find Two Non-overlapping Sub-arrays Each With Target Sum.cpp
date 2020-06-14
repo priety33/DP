@@ -5,7 +5,9 @@ public:
         unordered_map<int, int > ps;
         ps[0]=0;
         int len= INT_MAX, ans=INT_MAX;
+        // storing minlen of subarray found till current index
         vector<int> minlen;
+        //making ps and dp array 1 indexed.
         minlen.push_back(INT_MAX);
         for(int i=0; i<n; i++) {
             int curlen=INT_MAX;
@@ -15,7 +17,7 @@ public:
                 len=min(len, curlen);
                 if(minlen[ps[sum-target]]!=INT_MAX) ans=min(ans, curlen+ minlen[ps[sum-target]]);
             }
-            ps[sum]=i+1;
+            ps[sum]=i+1; // 1 indexed.
             minlen.push_back(len);
         }
         return (ans==INT_MAX)? -1 : ans;
