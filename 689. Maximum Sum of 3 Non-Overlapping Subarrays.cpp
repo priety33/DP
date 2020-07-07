@@ -15,14 +15,14 @@ public:
             }
         }
 
-        int left[n]; //maximum sum index, subarray ending at nums[i]
+        int left[n]; //maximum sum index, in subarrays starting from (0 to i)
         int best = 0;
         for (int i = 0; i < n; i++) {
             if (W[i] > W[best]) best = i;
             left[i] = best;
         }
 
-        int right[n]; //maximum sum index, subarray starting at nums[i]
+        int right[n]; //maximum sum index, in subarrays starting from (i to n-1)
         best = n - 1;
         for (int i = n - 1; i >= 0; i--) {
             if (W[i] >= W[best]) best = i;
