@@ -15,7 +15,7 @@ public:
             for(i=0; i<=sSize-len; ++i)
                 for(j=0; j<=sSize-len; ++j)
                 {
-                    isS[len][i][j] = false;
+                    isS[len][i][j] = false; //is substring of length starting from i in s1, and j in s2 scramble?
                         for(k=1; k<len && !isS[len][i][j]; ++k)
                         {
                             isS[len][i][j] = isS[len][i][j] || (isS[k][i][j] && isS[len-k][i+k][j+k]); // s1: L-R, s2: L-R
